@@ -46,15 +46,15 @@
 
 ### State Management - Zustand Store
 - [x] Create `lib/rag/chat-store.ts` structure
-- [ ] Implement `createNewChat()` action
-- [ ] Implement `addMessage()` action
-- [ ] Implement `deleteChatSession()` action
-- [ ] Implement `loadChatSession()` action
-- [ ] Implement `updateChatTitle()` action
-- [ ] Implement `attachFile()` action
-- [ ] Implement `removeAttachment()` action
-- [ ] Test state persistence (localStorage)
-- [ ] Test store actions with components
+- [x] Implement `createNewChat()` action
+- [x] Implement `addMessage()` action
+- [x] Implement `deleteChatSession()` action
+- [x] Implement `loadChatSession()` action
+- [x] Implement `updateChatTitle()` action
+- [x] Implement `attachFile()` action
+- [x] Implement `removeAttachment()` action
+- [x] Test state persistence (localStorage)
+- [x] Test store actions with components
 
 ### Prompt Templates
 - [x] Create `lib/rag/prompts.ts` with template definitions
