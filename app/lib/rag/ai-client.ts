@@ -1,28 +1,32 @@
-import { openai } from '@ai-sdk/openai';
+import { openai as createOpenAI } from '@ai-sdk/openai';
 
 /**
  * Initialize OpenRouter AI client using OpenAI compatible API
  * OpenRouter provides access to multiple LLM providers via a single endpoint
+ * 
+ * Note: The @ai-sdk/openai adapter expects the OPENAI_API_KEY environment variable.
+ * For OpenRouter, set OPENAI_API_KEY to your OpenRouter API key.
  */
 export function getAIClient() {
   const apiKey = process.env.OPENROUTER_API_KEY;
-  const baseURL = process.env.OPENROUTER_BASE_URL || 'https://openrouter.ai/api/v1';
   const modelName = process.env.OPENROUTER_MODEL || 'openrouter/auto';
 
   if (!apiKey) {
     throw new Error('OPENROUTER_API_KEY environment variable is not set');
   }
 
-  // Create OpenAI compatible client pointing to OpenRouter
-  const client = openai(modelName, {
-    apiKey: apiKey,
-    baseURL: baseURL,
-    defaultQuery: {
-      'HTTP-Referer': process.env.SITE_URL || 'http://localhost:3000',
-    },
-  });
+  // Set the OpenAI API key to OpenRouter key for this request
+  const originalApiKey = process.env.OPENAI_API_KEY;
+  process.env.OPENAI_API_KEY = apiKey;
 
-  return client;
+  try {
+    return createOpenAI(modelName);
+  } finally {
+    // Restore original API key
+    if (originalApiKey) {
+      process.env.OPENAI_API_KEY = originalApiKey;
+    }
+  }
 }
 
 /**

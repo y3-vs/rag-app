@@ -379,7 +379,11 @@ Standard send flow
 - [x] Build `InputArea.tsx` (upload controls)
 
 ### State Management
-- [ ] Create Zustand store (`chat-store.ts`)
+- [x] Create Zustand store (`chat-store.ts`)
+- [x] Create prompt templates (`prompts.ts`)
+- [x] Create file handler utilities (`file-handler.ts`)
+- [x] Create formatting utilities (`formatting.ts`)
+- [x] Create app constants (`constants.ts`)
 - [ ] Integrate store with components
 - [ ] Test state persistence (localStorage)
 - [ ] Implement chat session switching
