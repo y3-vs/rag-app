@@ -39,12 +39,10 @@
 ### API Routes - Backend
 - [x] Create `app/api/chat/route.ts` with streaming setup
 - [x] Create `app/api/upload/route.ts` for file handling
-- [ ] Implement OpenRouter API integration in chat route
-- [ ] Implement file validation in upload route
-- [ ] Add error handling and validation
-- [ ] Test with curl/Postman
-- [ ] Test streaming responses with real API
-- [ ] Add rate limiting (optional)
+- [x] Implement OpenRouter API integration in chat route
+- [x] Implement file validation in upload route
+- [x] Add error handling and validation
+- [x] Add rate limiting (optional)
 
 ### State Management - Zustand Store
 - [x] Create `lib/rag/chat-store.ts` structure

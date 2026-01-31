@@ -2,6 +2,7 @@ import { writeFile, mkdir } from 'fs/promises';
 import { join } from 'path';
 import { v4 as uuidv4 } from 'uuid';
 import type { FileAttachment } from '@/app/types';
+import RateLimiter, { getClientIP, RATE_LIMITS } from '@/app/lib/rag/rate-limiter';
 
 export const runtime = 'nodejs';
 
@@ -37,6 +38,26 @@ async function fileToBase64(file: File): Promise<string> {
  */
 export async function POST(request: Request) {
   try {
+    // Rate limiting check
+    const clientIP = getClientIP(request);
+    const rateLimitConfig = RATE_LIMITS.upload;
+    
+    if (!RateLimiter.isAllowed(clientIP, rateLimitConfig.maxRequests, rateLimitConfig.windowMs)) {
+      return new Response(
+        JSON.stringify({
+          error: 'Rate limit exceeded. Maximum 50 uploads per minute.',
+          retryAfter: RateLimiter.getResetTime(clientIP),
+        }),
+        {
+          status: 429,
+          headers: {
+            'Content-Type': 'application/json',
+            'Retry-After': Math.ceil((RateLimiter.getResetTime(clientIP) - Date.now()) / 1000).toString(),
+          },
+        }
+      );
+    }
+
     const formData = await request.formData();
     const file = formData.get('file') as File;
 

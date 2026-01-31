@@ -1,5 +1,6 @@
 import { streamText } from 'ai';
 import { getAIClient, aiConfig } from '@/app/lib/rag/ai-client';
+import RateLimiter, { getClientIP, RATE_LIMITS } from '@/app/lib/rag/rate-limiter';
 
 export const runtime = 'nodejs';
 
@@ -20,6 +21,26 @@ interface ChatRequest {
  */
 export async function POST(request: Request) {
   try {
+    // Rate limiting check
+    const clientIP = getClientIP(request);
+    const rateLimitConfig = RATE_LIMITS.chat;
+    
+    if (!RateLimiter.isAllowed(clientIP, rateLimitConfig.maxRequests, rateLimitConfig.windowMs)) {
+      return new Response(
+        JSON.stringify({
+          error: 'Rate limit exceeded. Maximum 100 requests per minute.',
+          retryAfter: RateLimiter.getResetTime(clientIP),
+        }),
+        {
+          status: 429,
+          headers: {
+            'Content-Type': 'application/json',
+            'Retry-After': Math.ceil((RateLimiter.getResetTime(clientIP) - Date.now()) / 1000).toString(),
+          },
+        }
+      );
+    }
+
     const body: ChatRequest = await request.json();
 
     // Validate request
