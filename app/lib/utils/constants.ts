@@ -99,3 +99,53 @@ export const DEFAULTS = {
   DEBOUNCE_DELAY: 300,
   AUTO_SAVE_INTERVAL: 5000, // 5 seconds
 };
+
+// Markdown Configuration
+export const MARKDOWN_CONFIG = {
+  // Regex patterns for markdown detection
+  BOLD_PATTERN: /\*\*.+?\*\*|\b__.+?__\b/g,
+  ITALIC_PATTERN: /\*.+?\*|_.+?_/g,
+  CODE_PATTERN: /`{1,3}.+?`{1,3}/g,
+  LINK_PATTERN: /\[(.+?)\]\((.+?)\)/g,
+  HEADER_PATTERN: /^#+\s/gm,
+  LIST_PATTERN: /^[-*+]\s/gm,
+  CODE_BLOCK_PATTERN: /```[\s\S]*?```/g,
+};
+
+// Message Display Configuration
+export const MESSAGE_CONFIG = {
+  MAX_DISPLAY_LENGTH: 5000,
+  SHOW_FULL_MESSAGE_THRESHOLD: 1000,
+  TIMESTAMP_FORMAT: 'HH:mm',
+  DATE_FORMAT: 'MMM d, yyyy',
+};
+
+// File Type Configurations
+export const FILE_TYPES = {
+  IMAGE: {
+    extensions: ['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg'],
+    mimeTypes: ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml'],
+  },
+  DOCUMENT: {
+    extensions: ['pdf', 'txt', 'doc', 'docx', 'md'],
+    mimeTypes: [
+      'application/pdf',
+      'text/plain',
+      'application/msword',
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+      'text/markdown',
+    ],
+  },
+  CODE: {
+    extensions: ['js', 'ts', 'jsx', 'tsx', 'py', 'java', 'cpp', 'c', 'cs', 'go', 'rs', 'rb'],
+    mimeTypes: ['text/plain', 'application/json', 'text/x-python'],
+  },
+};
+
+// Keyboard Shortcuts
+export const KEYBOARD_SHORTCUTS = {
+  SEND_MESSAGE: 'Ctrl+Enter',
+  NEW_CHAT: 'Ctrl+N',
+  FOCUS_INPUT: 'Ctrl+L',
+  CLEAR_INPUT: 'Escape',
+};

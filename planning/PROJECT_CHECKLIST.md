@@ -85,10 +85,10 @@
 ### Utility Functions
 - [x] Create `lib/utils/formatting.ts` structure
 - [x] Create `lib/utils/constants.ts` structure
-- [ ] Implement message formatting utilities
-- [ ] Implement date/time formatting
-- [ ] Implement markdown rendering helpers
-- [ ] Implement file name sanitization
+- [x] Implement message formatting utilities
+- [x] Implement date/time formatting
+- [x] Implement markdown rendering helpers
+- [x] Implement file name sanitization
 
 ---
 

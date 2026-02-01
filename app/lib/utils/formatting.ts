@@ -99,6 +99,146 @@ export const escapeHtml = (text: string): string => {
 };
 
 /**
+ * Sanitize file name by removing invalid characters
+ */
+export const sanitizeFileName = (fileName: string): string => {
+  // Remove invalid characters for file names
+  const sanitized = fileName
+    .replace(/[<>:"/\\|?*]/g, '_') // Replace invalid characters
+    .replace(/^\s+|\s+$/g, '') // Trim whitespace
+    .substring(0, 255); // Limit length
+
+  return sanitized || 'file'; // Return default if empty
+};
+
+/**
+ * Format file size to human-readable format
+ */
+export const formatFileSize = (bytes: number): string => {
+  if (bytes === 0) return '0 Bytes';
+
+  const k = 1024;
+  const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+
+  return Math.round((bytes / Math.pow(k, i)) * 100) / 100 + ' ' + sizes[i];
+};
+
+/**
+ * Format message content - handle code blocks and special formatting
+ */
+export const formatMessageContent = (content: string): string => {
+  if (!content) return '';
+
+  // Preserve code blocks while processing
+  const codeBlockPattern = /```([\s\S]*?)```/g;
+  const codeBlocks: string[] = [];
+  let processedContent = content;
+
+  // Extract code blocks
+  processedContent = processedContent.replace(codeBlockPattern, (match) => {
+    codeBlocks.push(match);
+    return `__CODE_BLOCK_${codeBlocks.length - 1}__`;
+  });
+
+  // Escape HTML in non-code sections
+  processedContent = escapeHtml(processedContent);
+
+  // Restore code blocks
+  processedContent = processedContent.replace(/__CODE_BLOCK_(\d+)__/g, (match, index) => {
+    return codeBlocks[parseInt(index)];
+  });
+
+  return processedContent;
+};
+
+/**
+ * Extract code language from markdown code block
+ */
+export const extractCodeLanguage = (codeBlock: string): string => {
+  const match = codeBlock.match(/^```(\w+)?/);
+  return match?.[1] || 'plain';
+};
+
+/**
+ * Convert markdown code blocks to HTML-safe format
+ */
+export const formatCodeBlock = (code: string): string => {
+  return escapeHtml(code);
+};
+
+/**
+ * Add line breaks for better readability
+ */
+export const addLineBreaks = (text: string): string => {
+  return text
+    .split('\n')
+    .map((line) => line.trim())
+    .filter((line) => line.length > 0)
+    .join('\n');
+};
+
+/**
+ * Extract URLs from text
+ */
+export const extractUrls = (text: string): string[] => {
+  const urlPattern = /(https?:\/\/[^\s]+)/g;
+  const matches = text.match(urlPattern);
+  return matches || [];
+};
+
+/**
+ * Truncate text at word boundary
+ */
+export const truncateAtWordBoundary = (text: string, maxLength: number = 100): string => {
+  if (text.length <= maxLength) return text;
+
+  const truncated = text.substring(0, maxLength);
+  const lastSpace = truncated.lastIndexOf(' ');
+
+  if (lastSpace > 0) {
+    return truncated.substring(0, lastSpace) + '...';
+  }
+
+  return truncated + '...';
+};
+
+/**
+ * Format JSON for display
+ */
+export const formatJson = (json: unknown): string => {
+  try {
+    return JSON.stringify(json, null, 2);
+  } catch {
+    return String(json);
+  }
+};
+
+/**
+ * Count words in text
+ */
+export const countWords = (text: string): number => {
+  return text.trim().split(/\s+/).filter((word) => word.length > 0).length;
+};
+
+/**
+ * Count characters in text
+ */
+export const countCharacters = (text: string): number => {
+  return text.length;
+};
+
+/**
+ * Format message metadata (word count, character count)
+ */
+export const formatMessageMetadata = (content: string): { words: number; chars: number } => {
+  return {
+    words: countWords(content),
+    chars: countCharacters(content),
+  };
+};
+
+/**
  * Format message content for display
  */
 export const formatMessageContent = (content: string): string => {
