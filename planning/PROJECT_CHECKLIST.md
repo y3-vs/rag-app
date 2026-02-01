@@ -68,11 +68,11 @@
 
 ### File Handling Utilities
 - [x] Create `lib/rag/file-handler.ts` structure
-- [ ] Implement file validation (type checking)
-- [ ] Implement file size validation (max 25MB)
-- [ ] Implement text extraction from documents
-- [ ] Implement image to base64 conversion
-- [ ] Implement file metadata extraction
+- [x] Implement file validation (type checking)
+- [x] Implement file size validation (max 25MB)
+- [x] Implement text extraction from documents
+- [x] Implement image to base64 conversion
+- [x] Implement file metadata extraction
 - [ ] Test with various file types (PDF, TXT, images)
 
 ### AI Client Setup
