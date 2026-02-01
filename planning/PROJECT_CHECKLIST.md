@@ -77,9 +77,9 @@
 
 ### AI Client Setup
 - [x] Create `lib/rag/ai-client.ts`
-- [ ] Configure OpenRouter client with API key
-- [ ] Set model to appropriate OpenRouter model
-- [ ] Configure temperature and max tokens
+- [x] Configure OpenRouter client with API key
+- [x] Set model to appropriate OpenRouter model
+- [x] Configure temperature and max tokens
 - [ ] Test API connection
 
 ### Utility Functions
