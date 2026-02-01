@@ -58,13 +58,13 @@
 
 ### Prompt Templates
 - [x] Create `lib/rag/prompts.ts` with template definitions
-- [ ] Add "Summarize" template
-- [ ] Add "Explain" template
-- [ ] Add "Code Review" template
-- [ ] Add "Q&A" template
-- [ ] Add "Brainstorm" template
-- [ ] Add "Translate" template
-- [ ] Verify all templates are accessible in components
+- [x] Add "Summarize" template
+- [x] Add "Explain" template
+- [x] Add "Code Review" template
+- [x] Add "Q&A" template
+- [x] Add "Brainstorm" template
+- [x] Add "Translate" template
+- [x] Verify all templates are accessible in components
 
 ### File Handling Utilities
 - [x] Create `lib/rag/file-handler.ts` structure
