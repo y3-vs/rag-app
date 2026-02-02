@@ -6,7 +6,7 @@ import { Layout } from '@/app/components/Layout';
 import { ChatHistory } from '@/app/components/ChatHistory';
 import { ChatPanel } from '@/app/components/ChatPanel';
 import { PromptTemplates } from '@/app/components/PromptTemplates';
-import { PromptTemplate } from '@/app/types';
+import { PromptTemplate, FileAttachment } from '@/app/types';
 
 export default function Home() {
   const {
@@ -22,15 +22,14 @@ export default function Home() {
     updateChatTitle,
     attachFile,
     removeAttachment,
-    clearAttachments,
   } = useChatStore();
 
-  const handleSelectTemplate = (template: PromptTemplate) => {
+  const handleSelectTemplate = () => {
     // This will be called from InputArea when a template is selected
     // The InputArea component will handle populating the input field
   };
 
-  const handleSendMessage = (content: string) => {
+  const handleSendMessage = (content: string, _attachments: FileAttachment[]) => {
     addMessage('user', content);
   };
 
@@ -62,7 +61,6 @@ export default function Home() {
           onSendMessage={handleSendMessage}
           onAddAttachment={attachFile}
           onRemoveAttachment={removeAttachment}
-          onClearAttachments={clearAttachments}
         />
       )}
     </Layout>

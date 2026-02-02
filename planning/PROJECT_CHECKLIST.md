@@ -104,11 +104,11 @@
 
 ### Chat History Component
 - [x] Create `app/components/ChatHistory.tsx`
-- [ ] Implement chat session list display
-- [ ] Implement "New Chat" button
-- [ ] Implement hover actions (rename, delete)
-- [ ] Implement active session indicator
-- [ ] Implement scroll for long history
+- [x] Implement chat session list display
+- [x] Implement "New Chat" button
+- [x] Implement hover actions (rename, delete)
+- [x] Implement active session indicator
+- [x] Implement scroll for long history
 - [ ] Add search/filter functionality (optional)
 - [ ] Connect to Zustand store
 - [ ] Test navigation between sessions

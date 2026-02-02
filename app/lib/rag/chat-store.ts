@@ -38,12 +38,14 @@ const createInitialSession = (): ChatSession => ({
   updatedAt: new Date(),
 });
 
+const initialSession = createInitialSession();
+
 export const useChatStore = create<ChatStore>()(
   persist(
     (set, get) => ({
       // Initial State
-      chatHistory: [createInitialSession()],
-      currentSessionId: null,
+      chatHistory: [initialSession],
+      currentSessionId: initialSession.id,
       currentFileAttachments: [],
       isLoading: false,
       error: null,

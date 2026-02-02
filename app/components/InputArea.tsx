@@ -41,7 +41,7 @@ export function InputArea({
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' && e.ctrlKey) {
+    if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       handleSend();
     }
@@ -154,11 +154,11 @@ export function InputArea({
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKeyDown}
           onPaste={handlePaste}
-          placeholder="Type your message... (Ctrl+Enter to send)"
+          placeholder="Type your message... (Shift+Enter for new line)"
           disabled={isLoading}
-          className="flex-1 bg-slate-800 text-slate-100 border border-slate-600 rounded-lg px-4 py-2 resize-none disabled:opacity-50 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+          className="flex-1 bg-slate-800 text-slate-100 border border-slate-600 rounded-lg px-4 py-3 resize-none disabled:opacity-50 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 min-h-[50px]"
           rows={1}
-          style={{ maxHeight: '200px' }}
+          style={{ maxHeight: '200px', overflowY: 'auto' }}
         />
 
         {/* Send Button */}

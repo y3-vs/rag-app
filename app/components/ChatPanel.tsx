@@ -4,7 +4,7 @@ import React, { useEffect, useRef } from 'react';
 import { Message, FileAttachment } from '@/app/types';
 import { MessageDisplay } from './MessageDisplay';
 import { InputArea } from './InputArea';
-import { MoreVertical } from 'lucide-react';
+import { MoreVertical, Loader2 } from 'lucide-react';
 
 interface ChatPanelProps {
   title: string;
@@ -14,7 +14,6 @@ interface ChatPanelProps {
   onSendMessage: (content: string, attachments: FileAttachment[]) => void;
   onAddAttachment: (file: FileAttachment) => void;
   onRemoveAttachment: (attachmentId: string) => void;
-  onClearAttachments?: () => void;
 }
 
 export function ChatPanel({
@@ -25,7 +24,6 @@ export function ChatPanel({
   onSendMessage,
   onAddAttachment,
   onRemoveAttachment,
-  onClearAttachments,
 }: ChatPanelProps) {
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -68,6 +66,19 @@ export function ChatPanel({
             ))}
             <div ref={messagesEndRef} />
           </>
+        )}
+        
+        {/* Loading Indicator */}
+        {isLoading && messages.length > 0 && (
+          <div className="flex gap-3">
+            <div className="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center flex-shrink-0 text-sm font-semibold">
+              AI
+            </div>
+            <div className="flex items-center gap-1 px-4 py-3 bg-slate-800 text-slate-100 rounded-lg rounded-bl-none">
+              <Loader2 size={16} className="animate-spin" />
+              <span className="text-sm text-slate-400">Thinking...</span>
+            </div>
+          </div>
         )}
       </div>
 
