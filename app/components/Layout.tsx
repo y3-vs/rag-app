@@ -1,7 +1,6 @@
 'use client';
 
 import React, { ReactNode, useState } from 'react';
-import { Menu, X } from 'lucide-react';
 
 interface LayoutProps {
   children: ReactNode;
@@ -11,7 +10,6 @@ interface LayoutProps {
 
 export function Layout({ children, chatHistory, promptTemplates }: LayoutProps) {
   const [activeTab, setActiveTab] = useState<'history' | 'chat' | 'templates'>('chat');
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
     <div className="h-screen flex flex-col bg-slate-950 text-slate-100">
