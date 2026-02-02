@@ -6,7 +6,7 @@ import { Layout } from '@/app/components/Layout';
 import { ChatHistory } from '@/app/components/ChatHistory';
 import { ChatPanel } from '@/app/components/ChatPanel';
 import { PromptTemplates } from '@/app/components/PromptTemplates';
-import { PromptTemplate, FileAttachment } from '@/app/types';
+import { FileAttachment } from '@/app/types';
 
 export default function Home() {
   const {
@@ -29,7 +29,7 @@ export default function Home() {
     // The InputArea component will handle populating the input field
   };
 
-  const handleSendMessage = (content: string, _attachments: FileAttachment[]) => {
+  const handleSendMessage = (content: string, attachments: FileAttachment[]) => {
     addMessage('user', content);
   };
 

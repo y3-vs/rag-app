@@ -3,7 +3,7 @@
 import React from 'react';
 import { Message, FileAttachment } from '@/app/types';
 import { format } from 'date-fns';
-import { Download, Image as ImageIcon, File } from 'lucide-react';
+import { File } from 'lucide-react';
 
 interface MessageDisplayProps {
   message: Message;
