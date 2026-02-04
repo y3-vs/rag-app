@@ -14,6 +14,7 @@ interface ChatPanelProps {
   onSendMessage: (content: string, attachments: FileAttachment[]) => void;
   onAddAttachment: (file: FileAttachment) => void;
   onRemoveAttachment: (attachmentId: string) => void;
+  externalInputValue?: string;
 }
 
 export function ChatPanel({
@@ -24,6 +25,7 @@ export function ChatPanel({
   onSendMessage,
   onAddAttachment,
   onRemoveAttachment,
+  externalInputValue,
 }: ChatPanelProps) {
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -89,6 +91,7 @@ export function ChatPanel({
         onSendMessage={onSendMessage}
         onAddAttachment={onAddAttachment}
         onRemoveAttachment={onRemoveAttachment}
+        externalInputValue={externalInputValue}
       />
     </div>
   );

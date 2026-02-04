@@ -1,9 +1,9 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { PromptTemplate } from '@/app/types';
 import { 
-  Sparkles, 
+  FileText,
   BookOpen, 
   Code, 
   HelpCircle, 
@@ -18,17 +18,19 @@ interface PromptTemplatesProps {
 }
 
 const iconMap: { [key: string]: LucideIcon } = {
-  summarize: BookOpen,
-  explain: Sparkles,
-  'code-review': Code,
-  'q-a': HelpCircle,
-  brainstorm: Lightbulb,
-  translate: Globe,
+  FileText,
+  BookOpen,
+  Code,
+  HelpCircle,
+  Lightbulb,
+  Globe,
 };
 
 export function PromptTemplates({ templates, onSelectTemplate }: PromptTemplatesProps) {
+  const [hoveredTemplate, setHoveredTemplate] = useState<string | null>(null);
+  
   const getIcon = (iconName: string): LucideIcon => {
-    return iconMap[iconName.toLowerCase()] || Sparkles;
+    return iconMap[iconName] || FileText;
   };
 
   return (
@@ -49,13 +51,26 @@ export function PromptTemplates({ templates, onSelectTemplate }: PromptTemplates
           <div className="grid grid-cols-2 gap-3">
             {templates.map((template) => {
               const IconComponent = getIcon(template.icon);
+              const isHovered = hoveredTemplate === template.id;
+              
               return (
                 <button
                   key={template.id}
                   onClick={() => onSelectTemplate(template)}
-                  className="group p-3 rounded-lg border border-slate-700 hover:border-blue-500 hover:bg-slate-800 transition-all text-left"
-                  title={template.description}
+                  onMouseEnter={() => setHoveredTemplate(template.id)}
+                  onMouseLeave={() => setHoveredTemplate(null)}
+                  className="group relative p-3 rounded-lg border border-slate-700 hover:border-blue-500 hover:bg-slate-800 transition-all text-left"
                 >
+                  {/* Tooltip with full description */}
+                  {isHovered && (
+                    <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-slate-900 border border-slate-600 rounded-lg shadow-lg z-10 w-48 pointer-events-none">
+                      <p className="text-xs text-slate-200">{template.description}</p>
+                      <div className="absolute top-full left-1/2 transform -translate-x-1/2 -mt-1">
+                        <div className="border-4 border-transparent border-t-slate-900"></div>
+                      </div>
+                    </div>
+                  )}
+                  
                   <div className="flex items-start gap-2">
                     <div className="p-2 rounded bg-blue-600 bg-opacity-20 group-hover:bg-opacity-30 transition-colors">
                       <IconComponent size={16} className="text-blue-400" />

@@ -10,6 +10,7 @@ interface InputAreaProps {
   onSendMessage: (content: string, attachments: FileAttachment[]) => void;
   onAddAttachment: (file: FileAttachment) => void;
   onRemoveAttachment: (attachmentId: string) => void;
+  externalInputValue?: string;
 }
 
 export function InputArea({
@@ -18,10 +19,18 @@ export function InputArea({
   onSendMessage,
   onAddAttachment,
   onRemoveAttachment,
+  externalInputValue,
 }: InputAreaProps) {
   const [input, setInput] = useState('');
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Update input when external value is provided
+  useEffect(() => {
+    if (externalInputValue !== undefined) {
+      setInput(externalInputValue);
+    }
+  }, [externalInputValue]);
 
   // Auto-resize textarea
   useEffect(() => {

@@ -1,14 +1,17 @@
 'use client';
 
+import { useState } from 'react';
 import { useChatStore } from '@/app/lib/rag/chat-store';
 import { PROMPT_TEMPLATES } from '@/app/lib/rag/prompts';
 import { Layout } from '@/app/components/Layout';
 import { ChatHistory } from '@/app/components/ChatHistory';
 import { ChatPanel } from '@/app/components/ChatPanel';
 import { PromptTemplates } from '@/app/components/PromptTemplates';
-import { FileAttachment } from '@/app/types';
+import { FileAttachment, PromptTemplate } from '@/app/types';
 
 export default function Home() {
+  const [externalInputValue, setExternalInputValue] = useState<string>();
+  
   const {
     chatHistory,
     currentSessionId,
@@ -24,9 +27,8 @@ export default function Home() {
     removeAttachment,
   } = useChatStore();
 
-  const handleSelectTemplate = () => {
-    // This will be called from InputArea when a template is selected
-    // The InputArea component will handle populating the input field
+  const handleSelectTemplate = (template: PromptTemplate) => {
+    setExternalInputValue(template.prompt);
   };
 
   const handleSendMessage = (content: string, attachments: FileAttachment[]) => {
@@ -61,6 +63,7 @@ export default function Home() {
           onSendMessage={handleSendMessage}
           onAddAttachment={attachFile}
           onRemoveAttachment={removeAttachment}
+          externalInputValue={externalInputValue}
         />
       )}
     </Layout>
