@@ -125,23 +125,23 @@
 
 ### Prompt Templates Component
 - [x] Create `app/components/PromptTemplates.tsx`
-- [ ] Implement template button grid
-- [ ] Display icon, title, and description
-- [ ] Implement click handler to populate input
-- [ ] Add hover effects with full description
-- [ ] Make scrollable container
-- [ ] Connect to prompt templates data
-- [ ] Test template injection into input
+- [x] Implement template button grid
+- [x] Display icon, title, and description
+- [x] Implement click handler to populate input
+- [x] Add hover effects with full description
+- [x] Make scrollable container
+- [x] Connect to prompt templates data
+- [x] Test template injection into input
 
 ### Message Display Component
 - [x] Create `app/components/MessageDisplay.tsx`
-- [ ] Implement message text rendering
-- [ ] Implement markdown support
-- [ ] Implement timestamp display
-- [ ] Implement user/assistant avatars
-- [ ] Implement file attachment preview
-- [ ] Implement streaming indicator
-- [ ] Add proper styling for message bubbles
+- [x] Implement message text rendering
+- [x] Implement markdown support
+- [x] Implement timestamp display
+- [x] Implement user/assistant avatars
+- [x] Implement file attachment preview
+- [x] Implement streaming indicator
+- [x] Add proper styling for message bubbles
 - [ ] Test with various message types
 
 ### Input Area Component
