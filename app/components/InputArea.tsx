@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { FileAttachment } from '@/app/types';
-import { Send, Paperclip, ImageIcon, X } from 'lucide-react';
+import { Send, Paperclip, ImageIcon, X, Upload } from 'lucide-react';
 
 interface InputAreaProps {
   attachments: FileAttachment[];
@@ -22,8 +22,10 @@ export function InputArea({
   externalInputValue,
 }: InputAreaProps) {
   const [input, setInput] = useState('');
+  const [isDragging, setIsDragging] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const dropZoneRef = useRef<HTMLDivElement>(null);
 
   // Update input when external value is provided
   useEffect(() => {
@@ -57,29 +59,7 @@ export function InputArea({
   };
 
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = e.currentTarget.files;
-    if (!files) return;
-
-    Array.from(files).forEach((file) => {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        const attachment: FileAttachment = {
-          id: Math.random().toString(36).substr(2, 9),
-          filename: file.name,
-          type: file.type.startsWith('image') ? 'image' : 'document',
-          size: file.size,
-          content: event.target?.result as string,
-        };
-        onAddAttachment(attachment);
-      };
-
-      if (file.type.startsWith('image')) {
-        reader.readAsDataURL(file);
-      } else {
-        reader.readAsText(file);
-      }
-    });
-
+    processFiles(e.currentTarget.files);
     // Reset input
     e.currentTarget.value = '';
   };
@@ -107,8 +87,66 @@ export function InputArea({
     }
   };
 
+  const processFiles = useCallback((files: FileList | null) => {
+    if (!files) return;
+
+    Array.from(files).forEach((file) => {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const attachment: FileAttachment = {
+          id: Math.random().toString(36).substr(2, 9),
+          filename: file.name,
+          type: file.type.startsWith('image') ? 'image' : 'document',
+          size: file.size,
+          content: event.target?.result as string,
+        };
+        onAddAttachment(attachment);
+      };
+
+      if (file.type.startsWith('image')) {
+        reader.readAsDataURL(file);
+      } else {
+        reader.readAsText(file);
+      }
+    });
+  }, [onAddAttachment]);
+
+  const handleDragOver = useCallback((e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(true);
+  }, []);
+
+  const handleDragLeave = useCallback((e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(false);
+  }, []);
+
+  const handleDrop = useCallback((e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(false);
+    processFiles(e.dataTransfer.files);
+  }, [processFiles]);
+
   return (
-    <div className="border-t border-slate-700 bg-slate-900 p-4">
+    <div
+      ref={dropZoneRef}
+      onDragOver={handleDragOver}
+      onDragLeave={handleDragLeave}
+      onDrop={handleDrop}
+      className="relative border-t border-slate-700 bg-slate-900 p-4"
+    >
+      {/* Drag and Drop Overlay */}
+      {isDragging && (
+        <div className="absolute inset-0 bg-blue-600 bg-opacity-20 border-2 border-dashed border-blue-500 rounded-lg z-10 flex items-center justify-center">
+          <div className="text-center">
+            <Upload size={48} className="text-blue-400 mx-auto mb-2" />
+            <p className="text-blue-200 font-medium">Drop files here to upload</p>
+          </div>
+        </div>
+      )}
       {/* Attachments Preview */}
       {attachments.length > 0 && (
         <div className="mb-4 flex gap-2 flex-wrap">

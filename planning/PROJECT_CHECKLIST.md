@@ -146,15 +146,15 @@
 
 ### Input Area Component
 - [x] Create `app/components/InputArea.tsx`
-- [ ] Implement text input field
-- [ ] Implement auto-expanding textarea
-- [ ] Implement file upload button
-- [ ] Implement drag-and-drop support
-- [ ] Implement image paste support
-- [ ] Implement send button with loading state
-- [ ] Implement file preview display
-- [ ] Implement clear attachments button
-- [ ] Connect to Zustand store
+- [x] Implement text input field
+- [x] Implement auto-expanding textarea
+- [x] Implement file upload button
+- [x] Implement drag-and-drop support
+- [x] Implement image paste support
+- [x] Implement send button with loading state
+- [x] Implement file preview display
+- [x] Implement clear attachments button
+- [x] Connect to Zustand store
 - [ ] Test file upload flow
 
 ---
