@@ -162,20 +162,20 @@
 ## Phase 5: Styling & Theme
 
 ### Tailwind Configuration
-- [ ] Configure color scheme (blue-600, indigo-500, slate tones)
-- [ ] Add custom message bubble utilities
-- [ ] Add scrollbar styling
-- [ ] Add animation for streaming text
-- [ ] Add responsive grid adjustments
+- [x] Configure color scheme (blue-600, indigo-500, slate tones)
+- [x] Add custom message bubble utilities
+- [x] Add scrollbar styling
+- [x] Add animation for streaming text
+- [x] Add responsive grid adjustments
 - [ ] Test color contrast for accessibility
 
 ### Global Styles
 - [x] Create `app/globals.css`
-- [ ] Add CSS reset
-- [ ] Define CSS variables for colors
-- [ ] Add animations for message appearance
-- [ ] Add markdown styling for code blocks
-- [ ] Add print-friendly styles
+- [x] Add CSS reset (handled by Tailwind)
+- [x] Define CSS variables for colors
+- [x] Add animations for message appearance
+- [x] Add markdown styling for code blocks
+- [x] Add print-friendly styles
 - [ ] Test on light and dark modes
 
 ---

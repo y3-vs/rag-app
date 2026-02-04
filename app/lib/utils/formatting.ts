@@ -125,34 +125,6 @@ export const formatFileSize = (bytes: number): string => {
 };
 
 /**
- * Format message content - handle code blocks and special formatting
- */
-export const formatMessageContent = (content: string): string => {
-  if (!content) return '';
-
-  // Preserve code blocks while processing
-  const codeBlockPattern = /```([\s\S]*?)```/g;
-  const codeBlocks: string[] = [];
-  let processedContent = content;
-
-  // Extract code blocks
-  processedContent = processedContent.replace(codeBlockPattern, (match) => {
-    codeBlocks.push(match);
-    return `__CODE_BLOCK_${codeBlocks.length - 1}__`;
-  });
-
-  // Escape HTML in non-code sections
-  processedContent = escapeHtml(processedContent);
-
-  // Restore code blocks
-  processedContent = processedContent.replace(/__CODE_BLOCK_(\d+)__/g, (match, index) => {
-    return codeBlocks[parseInt(index)];
-  });
-
-  return processedContent;
-};
-
-/**
  * Extract code language from markdown code block
  */
 export const extractCodeLanguage = (codeBlock: string): string => {
@@ -236,13 +208,4 @@ export const formatMessageMetadata = (content: string): { words: number; chars: 
     words: countWords(content),
     chars: countCharacters(content),
   };
-};
-
-/**
- * Format message content for display
- */
-export const formatMessageContent = (content: string): string => {
-  // Preserve markdown formatting
-  // In production, use a markdown parser library
-  return content;
 };
